@@ -1,49 +1,82 @@
+package activity2;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        GunOrderSystem system = new GunOrderSystem();
+        Scanner sc = new Scanner(System.in);
 
-        // gun menu arrays
-        String[] gunNames = {"Pistol", "Shotgun", "Rifle", "Sniper"};
-        double[] gunPrices = {550.0, 1250.0, 2200.0, 3200.0};
+        // Create a list of laptops
+        ArrayList<Item> laptops = new ArrayList<>();
 
-        boolean running = true;
-        while (running) {
-            // show menu
-            System.out.println("\n=== Gun Menu ===");
-            for (int i = 0; i < gunNames.length; i++) {
-                System.out.println((i + 1) + ". " + gunNames[i] + " - $" + gunPrices[i]);
+        // Add some sample laptops
+        laptops.add(new Item("Dell Inspiron", 45000, 5));
+        laptops.add(new Item("HP Pavilion", 50000, 3));
+        laptops.add(new Item("Lenovo ThinkPad", 60000, 4));
+        laptops.add(new Item("Lenovo ABP 14", 40000, 6));
+
+        int choice = 0;
+
+        do {
+            System.out.println("\n--- LAPTOP STORE MENU ---");
+            System.out.println("1. Show all laptops");
+            System.out.println("2. Buy a laptop");
+            System.out.println("3. Return a laptop");
+            System.out.println("4. Exit");
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    // Show all laptops
+                    System.out.println("\nAvailable Laptops:");
+                    for (int i = 0; i < laptops.size(); i++) {
+                        System.out.println((i + 1) + ". " + laptops.get(i).getItemName());
+                    }
+                    System.out.println("\nDetails:");
+                    for (Item l : laptops) {
+                        l.logDetails();
+                    }
+                    break;
+
+                case 2:
+                    // Buy a laptop
+                    System.out.println("Select laptop number to buy:");
+                    for (int i = 0; i < laptops.size(); i++) {
+                        System.out.println((i + 1) + ". " + laptops.get(i).getItemName());
+                    }
+                    int buyIndex = sc.nextInt() - 1;
+                    if (buyIndex >= 0 && buyIndex < laptops.size()) {
+                        laptops.get(buyIndex).buy();
+                    } else {
+                        System.out.println("Invalid selection");
+                    }
+                    break;
+
+                case 3:
+                    // Return a laptop
+                    System.out.println("Select laptop number to return:");
+                    for (int i = 0; i < laptops.size(); i++) {
+                        System.out.println((i + 1) + ". " + laptops.get(i).getItemName());
+                    }
+                    int returnIndex = sc.nextInt() - 1;
+                    if (returnIndex >= 0 && returnIndex < laptops.size()) {
+                        laptops.get(returnIndex).returnItem();
+                    } else {
+                        System.out.println("Invalid selection");
+                    }
+                    break;
+
+                case 4:
+                    System.out.println("Goodbye!");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice");
             }
-            System.out.println("0. Finish and show orders");
-            System.out.print("Enter gun number: ");
+        } while (choice != 4);
 
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline
-
-            if (choice == 0) {
-                running = false; // exit loop
-            } else if (choice >= 1 && choice <= gunNames.length) {
-                System.out.print("Enter quantity: ");
-                int quantity = scanner.nextInt();
-                scanner.nextLine(); // consume newline
-
-                // create and add order
-                String gunName = gunNames[choice - 1];
-                double price = gunPrices[choice - 1];
-                system.addOrder(new GunOrder(gunName, quantity, price));
-                System.out.println("Added " + quantity + " x " + gunName);
-            } else {
-                System.out.println("Invalid choice.");
-            }
-        }
-
-        // list all orders and total
-        system.listOrders();
-        System.out.println("Total Amount: $" + system.totalAmount());
-
-        scanner.close();
+        sc.close();
     }
 }
