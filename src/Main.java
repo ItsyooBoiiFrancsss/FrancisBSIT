@@ -5,12 +5,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        // Create a list of laptops
+        Scanner sc = new Scanner(System.in
         ArrayList<Item> laptops = new ArrayList<>();
-
-        // Add some sample laptops
+        
         laptops.add(new Item("Dell Inspiron", 45000, 5));
         laptops.add(new Item("HP Pavilion", 50000, 3));
         laptops.add(new Item("Lenovo ThinkPad", 60000, 4));
@@ -29,7 +26,7 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    // Show all laptops
+                  
                     System.out.println("\nAvailable Laptops:");
                     for (int i = 0; i < laptops.size(); i++) {
                         System.out.println((i + 1) + ". " + laptops.get(i).getItemName());
@@ -41,7 +38,7 @@ public class Main {
                     break;
 
                 case 2:
-                    // Buy a laptop
+              
                     System.out.println("Select laptop number to buy:");
                     for (int i = 0; i < laptops.size(); i++) {
                         System.out.println((i + 1) + ". " + laptops.get(i).getItemName());
@@ -55,7 +52,7 @@ public class Main {
                     break;
 
                 case 3:
-                    // Return a laptop
+               
                     System.out.println("Select laptop number to return:");
                     for (int i = 0; i < laptops.size(); i++) {
                         System.out.println((i + 1) + ". " + laptops.get(i).getItemName());
@@ -80,3 +77,4 @@ public class Main {
         sc.close();
     }
 }
+
